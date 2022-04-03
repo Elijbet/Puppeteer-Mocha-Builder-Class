@@ -1,4 +1,4 @@
-##### Dependencies vs DevDependencies
+### Dependencies vs DevDependencies
 
 package.js
 
@@ -22,17 +22,17 @@ dependencies are added with `npm install <package_name>`
 
 devDependencies need tag `--save-dev`
 
-##### Babel Relevancy
+### Babel Relevancy
 
 Babel today is less relevant than it used to due to growing ES support and more common browser usage, but Babel will still continue to provide support for experimental and upcoming Javascriptthat isn't available in the browser out of the box. ECMA standards committee has agreed to release yearly updates to the JavaScript language. Babel will always integrate the standards, whereas we don't know if all the browsers will.
 
-##### Common Scripts
+### Common Scripts
 
 scripts: {"clean"} remove compiled source code folder which was generated to be executed, to clean outdated files and rebuild it from the script. Typical way to do it is with clean script.
 
 build script is used to bundle you application for when you need to use it on your production environment. For example when you execute npm run build in a react application, the files that are in the build folder can be transferred to your server to be accessible by your users. Not necessary just for production. It can be for staging and testing.
 
-##### Use of Chai, Mocha, and Jest.
+### Use of Chai, Mocha, and Jest.
 
 Jest is a testing framework commonly used for React apps.
 
@@ -40,13 +40,13 @@ Mocha is a test framework but it requires other libraries to fully function, inc
 
 Puppeteer is a Node library that provides a high-level API to control headless Chrome or Chromium browsers over the DevTools Protocol. It can also be configured to use full (non-headless) Chrome or Chromium.
 
-##### Do Jest and Mocha both use Puppeteer?
+### Do Jest and Mocha both use Puppeteer?
 
 Not by default. By default they test the code itself, which is commonly called a unit test. Jest also includes functionality to render a React component, but it does that by rendering the component and not using Puppeteer to render the whole page. Puppeteer can be used with either framework to implement a kind of testing commonly called an integration test, which tests that various functionality is working correctly when integrated together and usually uses the same interface for testing, the browser, as an actual user would.
 
 Also used for e2e tests.
 
-| ##### Integration Testing                                                                  | ##### End-to-End Testing                                                  |
+| Integration Testing                                                                        | End-to-End Testing                                                        |
 | :----------------------------------------------------------------------------------------- | :------------------------------------------------------------------------ |
 | Testing to make sure app components work well together.                                    | Testing the product as a user would experience it.                        |
 | The scope could span multiple components but won’t span the entire stack most of the time. | Testing scope is wider and spans the entire application technology stack. |
