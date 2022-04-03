@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha --timeout=30000 ./build/tests/**.js",
+    "test": "./node_modules/mocha/bin/mocha --timeout=30000 --require mocha-steps ./build/tests/**.js",
     "clear": "rm -rf build",
     "build": "babel --preset es2015 -d build/ src/"
   },
