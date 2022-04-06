@@ -21,16 +21,18 @@ var Launcher = function () {
       var launchOptions = {
         headless: true,
         slowMo: 0,
-        args: ['--no-sandbox', '--disable-setui-sandbox', '--disable-web-security']
+        args: ['--no-sandbox', '--disable-setui-sandbox',
+        // In order to protect the host environment from untrusted web content, Chrome uses multiple layers of sandboxing. For this to work properly, the host should be configured first. If there's no good sandbox for Chrome to use, it will crash with the error No usable sandbox!. The --no-sandbox option is a straightforward workaround but obviously a poor security practice
+        '--disable-web-security']
       };
 
       var browser = await _puppeteer2.default.launch(launchOptions);
       var page = await browser.newPage();
-      var extendedPage = new Launcher(page);
+      var extendedPage = new Launcher(page); // We will be creating a proxy to combine the powers of the page and our extended page into one class, because we want to extend over the default puppeteer framework page class. Using this proxy trick you can actually override or even extend to include some of our extra functions.
       page.setDefaultTimeout(10000);
 
-      switch (viewport) {
-        case 'Mobile':
+      switch (viewport // device simulators
+      ) {case 'Mobile':
           var mobileViewport = _puppeteer2.default.devices['iPhone X'];
           await page.emulate(mobileViewport);
           break;
@@ -39,13 +41,30 @@ var Launcher = function () {
           await page.emulate(tabletViewport);
           break;
         case 'Desktop':
+          // there is no viewport for desktop
           await page.setViewport({ width: 1024, height: 768 });
           break;
         default:
           throw new Error('Supported devices are only MOBILE | TABLET | DESKTOP');
       }
+      // PROXY
+      // const target = {
+      //   message1: 'hello',
+      //   message2: 'everyone',
+      // }
+      // const handler2 = {
+      //   get(target, prop, receiver) {
+      //     return 'world'
+      //   },
+      // }
+      // const proxy2 = new Proxy(target, handler2)
+      // console.log(proxy2.message1); // world
+      // console.log(proxy2.message2); // world
+
+      // Here we've provided an implementation of the get() handler, which intercepts attempts to access properties in the target. Handler functions are sometimes called traps, presumably because they trap calls to the target object.
 
       return new Proxy(extendedPage, {
+        // proxy just takes multiple objects and merges them into one
         get: function get(_target, property) {
           return extendedPage[property] || browser[property] || page[property];
         }

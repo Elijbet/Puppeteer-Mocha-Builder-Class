@@ -32,6 +32,9 @@ scripts: {"clean"} remove compiled source code folder which was generated to be 
 
 build script is used to bundle you application for when you need to use it on your production environment. For example when you execute npm run build in a react application, the files that are in the build folder can be transferred to your server to be accessible by your users. Not necessary just for production. It can be for staging and testing.
 
+Do you need to always be running build before running the test?
+Elaborate on this? Some sources say before, some say after, some say tests during build.
+
 ### Use of Chai, Mocha, and Jest.
 
 Jest is a testing framework commonly used for React apps.

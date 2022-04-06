@@ -14,6 +14,8 @@ var _LoginPage2 = _interopRequireDefault(_LoginPage);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// Sequential scenarios for mocha: a library that is handy for BDD-like (human-readable descriptions as reqts) scenarios, or smoke tests that need to run through specific steps. Any failing step will abort the parent describe immediately, although Mocha supports bailing after the first test failure with --bail or -b tag without the steps. The difference is that in steps scenario the blocks aren't independent. A failing step would fail all the rest, so they are skipped instead.
+
 describe('End-to-end Test', function () {
   var page = void 0;
   var loginPage = void 0;
