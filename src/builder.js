@@ -8,16 +8,19 @@ export default class Launcher {
       args: [
         '--no-sandbox',
         '--disable-setui-sandbox',
-        '--disable-web-security',
+        // In order to protect the host environment from untrusted web content, Chrome uses multiple layers of sandboxing. For this to work properly, the host should be configured first. If there's no good sandbox for Chrome to use, it will crash with the error No usable sandbox!. The --no-sandbox option is a straightforward workaround but obviously a poor security practice
+        '--disable-web-security', // prevent blocking
       ],
     }
 
     const browser = await puppeteer.launch(launchOptions)
     const page = await browser.newPage()
-    const extendedPage = new Launcher(page)
+    const extendedPage = new Launcher(page) // We will be creating a proxy to combine the powers of the page and our extended page into one class, because we want to extend over the default puppeteer framework page class. Using this proxy trick you can actually override or even extend to include some of our extra functions.
     page.setDefaultTimeout(10000)
 
-    switch (viewport) {
+    switch (
+      viewport // device simulators
+    ) {
       case 'Mobile':
         const mobileViewport = puppeteer.devices['iPhone X']
         await page.emulate(mobileViewport)
@@ -26,7 +29,7 @@ export default class Launcher {
         const tabletViewport = puppeteer.devices['iPad landscape']
         await page.emulate(tabletViewport)
         break
-      case 'Desktop':
+      case 'Desktop': // there is no viewport for desktop
         await page.setViewport({ width: 1024, height: 768 })
         break
       default:
