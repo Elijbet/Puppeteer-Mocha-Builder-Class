@@ -9,14 +9,17 @@ import LoginPage from '../pages/LoginPage'
 describe('End-to-end Test', () => {
   let page
   let loginPage
+  let mobile
 
   before(async () => {
     page = await Page.build('Desktop')
+    mobile = await Page.build('Mobile') // can spin the second page
     loginPage = await new LoginPage(page)
   })
 
   after(async () => {
     await page.close()
+    await mobile.close()
   })
 
   step('should load google homepage', async () => {

@@ -19,14 +19,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 describe('End-to-end Test', function () {
   var page = void 0;
   var loginPage = void 0;
+  var mobile = void 0;
 
   before(async function () {
     page = await _builder2.default.build('Desktop');
+    mobile = await _builder2.default.build('Mobile'); // can spin the second page
     loginPage = await new _LoginPage2.default(page);
   });
 
   after(async function () {
     await page.close();
+    await mobile.close();
   });
 
   (0, _mochaSteps.step)('should load google homepage', async function () {

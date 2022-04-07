@@ -81,12 +81,14 @@ var Launcher = function () {
   _createClass(Launcher, [{
     key: 'waitAndClick',
     value: async function waitAndClick(selector) {
+      // shortcut to repeating commands
       await this.page.waitForSelector(selector);
       await this.page.click(selector);
     }
   }, {
     key: 'waitAndType',
     value: async function waitAndType(selector, text) {
+      // shortcut to repeating commands
       await this.page.waitForSelector(selector);
       await this.page.type(selector, text);
     }
@@ -124,8 +126,9 @@ var Launcher = function () {
   }, {
     key: 'waitForXPathAndClick',
     value: async function waitForXPathAndClick(xpath) {
+      // In case the attributes like id, name, and class are not present, we can utilise a distinct attribute available to only that tag or a combination of attributes and their values to identify an element.
       await this.page.waitForXPath(xpath);
-      var elements = await this.page.$x(xpath);
+      var elements = await this.page.$x(xpath); // ideally you'd use a more unique selector
       if (elements.length > 1) {
         console.warn('waitForXPathAndClick returned more than one result');
       }
@@ -135,7 +138,8 @@ var Launcher = function () {
     key: 'isElementVisible',
     value: async function isElementVisible(selector) {
       var visible = true;
-      await this.page.waitForSelector(selector, { visible: true, timeout: 3000 }).catch(function () {
+      await this.page.waitForSelector(selector, { visible: true, timeout: 3000 }) // if this throws an error it means it's not visible, so catch it below to make use of it
+      .catch(function () {
         visible = false;
       });
       return visible;
